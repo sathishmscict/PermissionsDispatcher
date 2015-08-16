@@ -23,7 +23,8 @@
 <a id="permissionsdispatcher" class="anchor" href="#permissionsdispatcher" aria-hidden="true"><span class="octicon octicon-link"></span></a>PermissionsDispatcher</h1>
 
 <p><a href="https://travis-ci.org/hotchemi/PermissionsDispatcher"><img src="https://travis-ci.org/hotchemi/PermissionsDispatcher.svg" alt="Build Status"></a>
-<a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"> <img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"> </a></p>
+<a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"> <img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"> </a>
+<a href="https://android-arsenal.com/details/1/2316"><img src="https://img.shields.io/badge/Android%20Arsenal-PermissionsDispatcher-green.svg?style=flat" alt="Android Arsenal"></a></p>
 
 <blockquote>
 <p><strong>PermissionsDispatcher is based on the latest <a href="https://developer.android.com/preview/overview.html">official document</a>. Currently preview2 is the newest but it may change drastically in the near future. 1.0 will be out after M final release.</strong></p>
@@ -68,7 +69,7 @@
     <span class="pl-k">void</span> <span class="pl-en">showCamera</span>() {
         getSupportFragmentManager()<span class="pl-k">.</span>beginTransaction()
                 .replace(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>sample_content_fragment, <span class="pl-smi">CameraPreviewFragment</span><span class="pl-k">.</span>newInstance())
-                .addToBackStack(<span class="pl-s"><span class="pl-pds">"</span>contacts<span class="pl-pds">"</span></span>)
+                .addToBackStack(<span class="pl-s"><span class="pl-pds">"</span>camera<span class="pl-pds">"</span></span>)
                 .commitAllowingStateLoss();
     }
 
