@@ -87,7 +87,7 @@
 
 <p>In this case the name is <code>MainActivityPermissionsDispatcher</code>.</p>
 
-<p>It has <code>xxxWithCheck</code> and <code>onRequestPermissionsResult</code> methods.</p>
+<p>It has methods ends with <code>WithCheck</code> and <code>onRequestPermissionsResult</code>.</p>
 
 <p>Only you have to do is delegating the work to them.</p>
 
@@ -122,7 +122,7 @@
             onRequestPermissionsResult(<span class="pl-v">this</span>, requestCode, permissions, grantResults);
 }</pre></div>
 
-<p>If you want to know more detail, please check the <a href="https://github.com/hotchemi/PermissionsDispatcher/tree/master/permissionsdispatcher-sample">sample</a> and generated class.</p>
+<p>If you want to know more detail, please check the <a href="https://github.com/hotchemi/PermissionsDispatcher/tree/master/permissionsdispatcher-sample">sample</a> and <a href="https://gist.github.com/hotchemi/5dc89c02399c2419fab7">generated class</a>.</p>
 
 <h2>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
@@ -138,8 +138,8 @@
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:0.5.0<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:0.5.0<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:0.9.0<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:0.9.0<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <h2>
