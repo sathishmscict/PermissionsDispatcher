@@ -26,18 +26,11 @@
 <a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"> <img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"> </a>
 <a href="https://android-arsenal.com/details/1/2316"><img src="https://img.shields.io/badge/Android%20Arsenal-PermissionsDispatcher-green.svg?style=flat" alt="Android Arsenal"></a></p>
 
-<blockquote>
-<p><strong>PermissionsDispatcher is based on the latest <a href="https://developer.android.com/preview/overview.html">official document</a>. Currently preview2 is the newest but it may change drastically in the near future. 1.0 will be out after M final release.</strong></p>
-</blockquote>
-
 <p>PermissionsDispatcher provides simple annotation-based API to handle runtime permissions in Android M.</p>
 
-<p>You can be released from the burden that writing a bunch of check statements whether a permission have been granted or not. </p>
-
-<h2>
-<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivation</h2>
-
 <p><a href="https://developer.android.com/preview/features/runtime-permissions.html">Runtime permissions</a> is so great for users but also the hell for developers. Actually I don't want to write such a complicated <a href="https://github.com/googlesamples/android-RuntimePermissions/blob/master/Application/src/main/java/com/example/android/system/runtimepermissions/MainActivity.java">code</a> anymore.</p>
+
+<p>You can be released from the burden that writing a bunch of check statements whether a permission have been granted or not. </p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
@@ -55,7 +48,7 @@
 <li>
 <code>@NeedsPermission</code>: [Must] Register a method which the permission is needed.</li>
 <li>
-<code>@ShowsRationale</code>: [Option] Register a method which explains why the permission is needed. Actually an annotated method is called when <code>shouldShowRequestPermissionRationale</code> returns true.</li>
+<code>@ShowsRationale</code>: [Option] Register a method which explains why the permission is needed. Actually an annotated method is called when <code>shouldShowRequestPermissionRationale</code> returns true or when uer deny a permission.</li>
 </ul>
 
 <blockquote>
@@ -138,9 +131,14 @@
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:0.9.0<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:0.9.0<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.0.0<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.0.0<span class="pl-pds">'</span></span>
 }</pre></div>
+
+<h2>
+<a id="support" class="anchor" href="#support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support</h2>
+
+<p>PermissionsDispatcher supports API level over 4, and using support v4 rev.23.</p>
 
 <h2>
 <a id="proguard" class="anchor" href="#proguard" aria-hidden="true"><span class="octicon octicon-link"></span></a>ProGuard</h2>
