@@ -26,9 +26,9 @@
 <a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"> <img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"> </a>
 <a href="https://android-arsenal.com/details/1/2316"><img src="https://img.shields.io/badge/Android%20Arsenal-PermissionsDispatcher-green.svg?style=flat" alt="Android Arsenal"></a></p>
 
-<p>PermissionsDispatcher provides simple annotation-based API to handle runtime permissions in Android M.</p>
+<p>PermissionsDispatcher provides simple annotation-based API to handle runtime permissions in Marshmallow.</p>
 
-<p><a href="https://developer.android.com/preview/features/runtime-permissions.html">Runtime permissions</a> is so great for users but also the hell for developers. Actually I don't want to write such a complicated <a href="https://github.com/googlesamples/android-RuntimePermissions/blob/master/Application/src/main/java/com/example/android/system/runtimepermissions/MainActivity.java">code</a> anymore.</p>
+<p><a href="https://developer.android.com/preview/features/runtime-permissions.html">Runtime permissions</a> is so great for users but also the hell for developers.</p>
 
 <p>You can be released from the burden that writing a bunch of check statements whether a permission have been granted or not. </p>
 
@@ -40,15 +40,25 @@
 <h3>
 <a id="1-attach-annotations" class="anchor" href="#1-attach-annotations" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Attach annotations</h3>
 
-<p>There are only 3 annotations.</p>
+<p>There are only few annotations.</p>
 
 <ul>
 <li>
-<code>@RuntimePermissions</code>: [Must] Register an Activity or Fragment to handle permissions.</li>
+<code>@RuntimePermissions</code>: Register an Activity or Fragment to handle permissions.</li>
 <li>
-<code>@NeedsPermission</code>: [Must] Register a method which the permission is needed.</li>
+<code>@NeedsPermission</code>: Register a method which the permission is needed.
+
+<ul>
+<li>You can use <code>@NeedsPermissions</code> for multiple requests.</li>
+</ul>
+</li>
 <li>
-<code>@ShowsRationale</code>: [Option] Register a method which explains why the permission is needed. Actually an annotated method is called when <code>shouldShowRequestPermissionRationale</code> returns true or when uer deny a permission.</li>
+<code>@ShowsRationale</code>: Register a method which explains why the permission is needed. Actually an annotated method is called when <code>shouldShowRequestPermissionRationale</code> returns true.
+
+<ul>
+<li>You can use <code>@ShowsRationales</code> for multiple requests.</li>
+</ul>
+</li>
 </ul>
 
 <blockquote>
@@ -131,8 +141,8 @@
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.0.1<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.0.1<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.1.0<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.1.0<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <h2>
