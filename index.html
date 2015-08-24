@@ -53,7 +53,7 @@
 </ul>
 </li>
 <li>
-<code>@ShowsRationale</code>: Register a method which explains why the permission is needed. Actually an annotated method is called when <code>shouldShowRequestPermissionRationale</code> returns true.
+<code>@ShowsRationale</code>: Register a method which explains why the permission is needed. An annotated method is called when <code>shouldShowRequestPermissionRationale</code> returns true.
 
 <ul>
 <li>You can use <code>@ShowsRationales</code> for multiple requests.</li>
@@ -122,7 +122,7 @@
 <span class="pl-k">public</span> <span class="pl-k">void</span> onRequestPermissionsResult(<span class="pl-k">int</span> requestCode, <span class="pl-k">String</span>[] permissions, <span class="pl-k">int</span>[] grantResults) {
     <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
     <span class="pl-smi">MainActivityPermissionsDispatcher</span>.
-            onRequestPermissionsResult(<span class="pl-v">this</span>, requestCode, permissions, grantResults);
+            onRequestPermissionsResult(<span class="pl-v">this</span>, requestCode, grantResults);
 }</pre></div>
 
 <p>If you want to know more detail, please check the <a href="https://github.com/hotchemi/PermissionsDispatcher/tree/master/permissionsdispatcher-sample">sample</a> and <a href="https://gist.github.com/hotchemi/5dc89c02399c2419fab7">generated class</a>.</p>
@@ -141,8 +141,8 @@
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.1.0<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.1.0<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.1.1<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.1.1<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <h2>
