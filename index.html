@@ -141,8 +141,8 @@
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.1.1<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.1.1<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.1.2<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.1.2<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <h2>
@@ -156,9 +156,6 @@ dependencies {
 <pre><code>-dontwarn permissions.dispatcher.processor.**
 -keep class permissions.dispatcher.** { *; }
 -keep class **PermissionsDispatcher { *; }
--keepclasseswithmembernames class * {
-    @permissions.dispatcher.* &lt;methods&gt;;
-}
 </code></pre>
 
 <h2>
