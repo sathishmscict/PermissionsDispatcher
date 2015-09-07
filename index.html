@@ -23,14 +23,13 @@
 <a id="permissionsdispatcher" class="anchor" href="#permissionsdispatcher" aria-hidden="true"><span class="octicon octicon-link"></span></a>PermissionsDispatcher</h1>
 
 <p><a href="https://travis-ci.org/hotchemi/PermissionsDispatcher"><img src="https://travis-ci.org/hotchemi/PermissionsDispatcher.svg" alt="Build Status"></a>
-<a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"> <img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"> </a>
-<a href="https://android-arsenal.com/details/1/2316"><img src="https://img.shields.io/badge/Android%20Arsenal-PermissionsDispatcher-green.svg?style=flat" alt="Android Arsenal"></a></p>
+<a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"> <img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"> </a></p>
 
 <p>PermissionsDispatcher provides simple annotation-based API to handle runtime permissions in Marshmallow.</p>
 
 <p><a href="https://developer.android.com/preview/features/runtime-permissions.html">Runtime permissions</a> is so great for users but also the hell for developers.</p>
 
-<p>You can be released from the burden that writing a bunch of check statements whether a permission have been granted or not. </p>
+<p>You can be released from the burden that writing a bunch of check statements whether a permission have been granted or not.</p>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
@@ -42,6 +41,9 @@
 
 <p>There are only few annotations.</p>
 
+<h4>
+<a id="must" class="anchor" href="#must" aria-hidden="true"><span class="octicon octicon-link"></span></a>Must</h4>
+
 <ul>
 <li>
 <code>@RuntimePermissions</code>: Register an Activity or Fragment to handle permissions.</li>
@@ -52,11 +54,24 @@
 <li>You can use <code>@NeedsPermissions</code> for multiple requests.</li>
 </ul>
 </li>
+</ul>
+
+<h4>
+<a id="option" class="anchor" href="#option" aria-hidden="true"><span class="octicon octicon-link"></span></a>Option</h4>
+
+<ul>
 <li>
 <code>@ShowsRationale</code>: Register a method which explains why the permission is needed. An annotated method is called when <code>shouldShowRequestPermissionRationale</code> returns true.
 
 <ul>
 <li>You can use <code>@ShowsRationales</code> for multiple requests.</li>
+</ul>
+</li>
+<li>
+<code>@DeniedPermission</code>: Register a method called when user deny a permission.
+
+<ul>
+<li>You can use <code>@DeniedPermissions</code> for multiple requests.</li>
 </ul>
 </li>
 </ul>
@@ -76,11 +91,16 @@
                 .commitAllowingStateLoss();
     }
 
-    <span class="pl-c">// this is option</span>
+    <span class="pl-c">// Option</span>
     <span class="pl-k">@ShowsRationale</span>(<span class="pl-smi">Manifest</span><span class="pl-k">.</span><span class="pl-smi">permission<span class="pl-k">.</span>CAMERA</span>)
     <span class="pl-k">void</span> <span class="pl-en">showRationaleForCamera</span>() {
         <span class="pl-smi">Toast</span><span class="pl-k">.</span>makeText(<span class="pl-v">this</span>, <span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>permission_camera_rationale, <span class="pl-smi">Toast</span><span class="pl-c1"><span class="pl-k">.</span>LENGTH_SHORT</span>)<span class="pl-k">.</span>show();
     }
+
+    <span class="pl-c">// Option</span>
+    <span class="pl-k">@DeniedPermission</span>(<span class="pl-smi">Manifest</span><span class="pl-k">.</span><span class="pl-smi">permission<span class="pl-k">.</span>CAMERA</span>)
+    <span class="pl-k">void</span> <span class="pl-en">showDeniedForCamera</span>() {
+        <span class="pl-smi">Toast</span><span class="pl-k">.</span>makeText(<span class="pl-v">this</span>, <span class="pl-smi">R</span><span class="pl-k">.</span>string<span class="pl-k">.</span>permission_camera_denied, <span class="pl-smi">Toast</span><span class="pl-c1"><span class="pl-k">.</span>LENGTH_SHORT</span>)<span class="pl-k">.</span>show();
 }</pre></div>
 
 <h3>
@@ -99,23 +119,8 @@
     <span class="pl-v">super</span><span class="pl-k">.</span>onCreate(savedInstanceState);
     setContentView(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>activity_main);
     <span class="pl-smi">Button</span> cameraButton <span class="pl-k">=</span> (<span class="pl-smi">Button</span>) findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_camera);
-    cameraButton<span class="pl-k">.</span>setOnClickListener(<span class="pl-v">this</span>);
-    <span class="pl-smi">Button</span> contactsButton <span class="pl-k">=</span> (<span class="pl-smi">Button</span>) findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_contacts);
-    contactsButton<span class="pl-k">.</span>setOnClickListener(<span class="pl-v">this</span>);
-}
-
-@<span class="pl-smi">Override</span>
-<span class="pl-k">public</span> <span class="pl-k">void</span> onClick(<span class="pl-smi">View</span> v) {
-    <span class="pl-k">switch</span> (v<span class="pl-k">.</span>getId()) {
-        <span class="pl-k">case</span> <span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_camera<span class="pl-k">:</span>
-            <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
-            <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showCameraWithCheck(<span class="pl-v">this</span>);
-            <span class="pl-k">break</span>;
-        <span class="pl-k">case</span> <span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_contacts<span class="pl-k">:</span>
-            <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
-            <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showContactsWithCheck(<span class="pl-v">this</span>);
-            <span class="pl-k">break</span>;
-    }
+    cameraButton<span class="pl-k">.</span>setOnClickListener(v <span class="pl-k">-</span><span class="pl-k">&gt;</span>
+      <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showCameraWithCheck(<span class="pl-v">this</span>));
 }
 
 @<span class="pl-smi">Override</span>
@@ -134,15 +139,15 @@
 
 <div class="highlight highlight-groovy"><pre>buildscript {
   dependencies {
-    classpath <span class="pl-s"><span class="pl-pds">'</span>com.neenbedankt.gradle.plugins:android-apt:1.4<span class="pl-pds">'</span></span>
+    classpath <span class="pl-s"><span class="pl-pds">'</span>com.neenbedankt.gradle.plugins:android-apt:1.7<span class="pl-pds">'</span></span>
   }
 }
 
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.1.2<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.1.2<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.2.0<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.2.0<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <h2>
