@@ -119,6 +119,7 @@
     <span class="pl-v">super</span><span class="pl-k">.</span>onCreate(savedInstanceState);
     setContentView(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>activity_main);
     <span class="pl-smi">Button</span> cameraButton <span class="pl-k">=</span> (<span class="pl-smi">Button</span>) findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_camera);
+    <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
     cameraButton<span class="pl-k">.</span>setOnClickListener(v <span class="pl-k">-</span><span class="pl-k">&gt;</span>
       <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showCameraWithCheck(<span class="pl-v">this</span>));
 }
@@ -146,8 +147,8 @@
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.2.0<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.2.0<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.2.1<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.2.1<span class="pl-pds">'</span></span>
 }</pre></div>
 
 <h2>
