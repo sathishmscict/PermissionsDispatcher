@@ -127,7 +127,7 @@
 
 @<span class="pl-smi">Override</span>
 <span class="pl-k">public</span> <span class="pl-k">void</span> onRequestPermissionsResult(<span class="pl-k">int</span> requestCode, <span class="pl-k">String</span>[] permissions, <span class="pl-k">int</span>[] grantResults) {
-    <span class="pl-v">super</span><span class="pl-k">.</span>onRequestPermissionsResult(<span class="pl-k">int</span> requestCode, <span class="pl-k">String</span>[] permissions, <span class="pl-k">int</span>[] grantResults);
+    <span class="pl-v">super</span><span class="pl-k">.</span>onRequestPermissionsResult(requestCode, permissions, grantResults);
     <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
     <span class="pl-smi">MainActivityPermissionsDispatcher</span>.
             onRequestPermissionsResult(<span class="pl-v">this</span>, requestCode, grantResults);
@@ -149,7 +149,7 @@
 apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
 
 dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.2.1<span class="pl-pds">'</span></span>
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:1.2.1@aar<span class="pl-pds">'</span></span>
   apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:1.2.1<span class="pl-pds">'</span></span>
 }</pre></div>
 
