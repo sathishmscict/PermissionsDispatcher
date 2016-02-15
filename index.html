@@ -26,13 +26,16 @@
 
 <p><img src="https://raw.githubusercontent.com/hotchemi/PermissionsDispatcher/master/art/logo.png" alt="image"></p>
 
-<p>PermissionsDispatcher provides a simple annotation-based API to handle runtime permissions in Android Marshmallow.
-<a href="https://developer.android.com/preview/features/runtime-permissions.html">Runtime permissions</a> are great for users, but can be tedious to implement correctly for developers, requiring a lot of boilerplate code. This library lifts the burden that comes with writing a bunch of check statements whether a permission has been granted or not from you, in order to keep your code clean and safe. The library is 100% reflection-free.</p>
+<p>PermissionsDispatcher provides a simple annotation-based API to handle runtime permissions in Android Marshmallow.</p>
+
+<p><a href="https://developer.android.com/preview/features/runtime-permissions.html">Runtime permissions</a> are great for users, but can be tedious to implement correctly for developers, requiring a lot of boilerplate code.</p>
+
+<p>This library lifts the burden that comes with writing a bunch of check statements whether a permission has been granted or not from you, in order to keep your code clean and safe.</p>
+
+<p><strong>The library is 100% reflection-free.</strong></p>
 
 <h2>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h2>
-
-<p>This library is only compatible with Gradle-based builds.</p>
 
 <p>To add it to your project, include the following in your <strong>project</strong> <code>build.gradle</code> file:</p>
 
@@ -67,6 +70,10 @@ dependencies {
 <a id="1-attach-annotations" class="anchor" href="#1-attach-annotations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. Attach annotations</h3>
 
 <p>PermissionsDispatcher introduces only a few annotations, keeping its general API concise:</p>
+
+<blockquote>
+<p>NOTE: Annotated methods must not be <code>private</code>.</p>
+</blockquote>
 
 <table>
 <thead>
@@ -105,10 +112,6 @@ dependencies {
 </tbody>
 </table>
 
-<blockquote>
-<p>NOTE: Annotated methods must not be <code>private</code>.</p>
-</blockquote>
-
 <div class="highlight highlight-source-java"><pre>@<span class="pl-smi">RuntimePermissions</span>
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MainActivity</span> <span class="pl-k">extends</span> <span class="pl-e">AppCompatActivity</span> {
 
@@ -143,28 +146,20 @@ dependencies {
 <h3>
 <a id="2-delegate-to-generated-class" class="anchor" href="#2-delegate-to-generated-class" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. Delegate to generated class</h3>
 
-<p>Upon compilation, PermissionsDispatcher generates a class for <code>MainActivity</code> (suffixed with <code>PermissionsDispatcher</code>), which you can use to safely access these permission-protected methods. The only step you have to do is delegating the work to this helper class:</p>
+<p>Upon compilation, PermissionsDispatcher generates a class for <code>MainActivityPermissionsDispatcher</code>, which you can use to safely access these permission-protected methods. The only step you have to do is delegating the work to this helper class:</p>
 
 <div class="highlight highlight-source-java"><pre>@<span class="pl-smi">Override</span>
 <span class="pl-k">protected</span> <span class="pl-k">void</span> onCreate(<span class="pl-smi">Bundle</span> savedInstanceState) {
     <span class="pl-v">super</span><span class="pl-k">.</span>onCreate(savedInstanceState);
     setContentView(<span class="pl-smi">R</span><span class="pl-k">.</span>layout<span class="pl-k">.</span>activity_main);
-    findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_camera)<span class="pl-k">.</span>setOnClickListener(<span class="pl-v">this</span>);
-    findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_contacts)<span class="pl-k">.</span>setOnClickListener(<span class="pl-v">this</span>);
-}
-
-@<span class="pl-smi">Override</span>
-<span class="pl-k">public</span> <span class="pl-k">void</span> onClick(<span class="pl-smi">View</span> v) {
-    <span class="pl-k">switch</span> (v<span class="pl-k">.</span>getId()) {
-        <span class="pl-k">case</span> <span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_camera<span class="pl-k">:</span>
-            <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
-            <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showCameraWithCheck(<span class="pl-v">this</span>);
-            <span class="pl-k">break</span>;
-        <span class="pl-k">case</span> <span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_contacts<span class="pl-k">:</span>
-            <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
-            <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showContactsWithCheck(<span class="pl-v">this</span>);
-            <span class="pl-k">break</span>;
-    }
+    findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_camera)<span class="pl-k">.</span>setOnClickListener(v <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+      <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
+      <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showCameraWithCheck(<span class="pl-v">this</span>);
+    });
+    findViewById(<span class="pl-smi">R</span><span class="pl-k">.</span>id<span class="pl-k">.</span>button_contacts)<span class="pl-k">.</span>setOnClickListener(v <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+      <span class="pl-c">// NOTE: delegate the permission handling to generated method</span>
+      <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>showContactsWithCheck(<span class="pl-v">this</span>);
+    });
 }
 
 @<span class="pl-smi">Override</span>
@@ -174,7 +169,7 @@ dependencies {
     <span class="pl-smi">MainActivityPermissionsDispatcher</span><span class="pl-k">.</span>onRequestPermissionsResult(<span class="pl-v">this</span>, requestCode, grantResults);
 }</pre></div>
 
-<p>Check out the <a href="https://github.com/hotchemi/PermissionsDispatcher/tree/master/sample">sample</a> and <a href="https://gist.github.com/aurae/7821f3a2da098b949f7b">generated class</a> for more details.</p>
+<p>Check out the <a href="https://github.com/hotchemi/PermissionsDispatcher/tree/master/sample">sample</a> and <a href="https://github.com/hotchemi/PermissionsDispatcher/blob/master/art/MainActivityPermissionsDispatcher.java">generated class</a> for more details.</p>
 
 <h2>
 <a id="support" class="anchor" href="#support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support</h2>
