@@ -35,28 +35,6 @@
 <p><strong>The library is 100% reflection-free.</strong></p>
 
 <h2>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h2>
-
-<p>To add it to your project, include the following in your <strong>project</strong> <code>build.gradle</code> file:</p>
-
-<div class="highlight highlight-source-groovy"><pre>buildscript {
-  dependencies {
-    classpath <span class="pl-s"><span class="pl-pds">'</span>com.neenbedankt.gradle.plugins:android-apt:1.8<span class="pl-pds">'</span></span>
-  }
-}</pre></div>
-
-<p>And on your <strong>app module</strong> <code>build.gradle</code>:</p>
-
-<p><code>${latest.version}</code> is <a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"><img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"></a></p>
-
-<div class="highlight highlight-source-groovy"><pre>apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
-
-dependencies {
-  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:${latest.version}<span class="pl-pds">'</span></span>
-  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:${latest.version}<span class="pl-pds">'</span></span>
-}</pre></div>
-
-<h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>Here's a minimum example, in which we register a <code>MainActivity</code> which requires <code>Manifest.permission.CAMERA</code>.</p>
@@ -191,6 +169,28 @@ dependencies {
 <ul>
 <li><a href="https://github.com/hotchemi/PermissionsDispatcher/wiki/Migrating-to-2.x">Migrating to 2.x</a></li>
 </ul>
+
+<h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h2>
+
+<p>To add it to your project, include the following in your <strong>project</strong> <code>build.gradle</code> file:</p>
+
+<div class="highlight highlight-source-groovy"><pre>buildscript {
+  dependencies {
+    classpath <span class="pl-s"><span class="pl-pds">'</span>com.neenbedankt.gradle.plugins:android-apt:1.8<span class="pl-pds">'</span></span>
+  }
+}</pre></div>
+
+<p>And on your <strong>app module</strong> <code>build.gradle</code>:</p>
+
+<p><code>${latest.version}</code> is <a href="https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion"><img src="https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg" alt="Download"></a></p>
+
+<div class="highlight highlight-source-groovy"><pre>apply <span class="pl-c1">plugin</span>: <span class="pl-s"><span class="pl-pds">'</span>android-apt<span class="pl-pds">'</span></span>
+
+dependencies {
+  compile <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher:${latest.version}<span class="pl-pds">'</span></span>
+  apt <span class="pl-s"><span class="pl-pds">'</span>com.github.hotchemi:permissionsdispatcher-processor:${latest.version}<span class="pl-pds">'</span></span>
+}</pre></div>
 
 <h2>
 <a id="licence" class="anchor" href="#licence" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Licence</h2>
