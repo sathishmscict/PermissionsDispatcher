@@ -3,9 +3,6 @@ import org.gradle.internal.jvm.Jvm
 apply plugin: 'kotlin'
 apply plugin: 'com.novoda.bintray-release'
 
-sourceCompatibility = JavaVersion.VERSION_1_6
-targetCompatibility = JavaVersion.VERSION_1_6
-
 sourceSets {
     main {
         java {
@@ -67,6 +64,7 @@ dependencies {
     testCompile "junit:junit:$JUNIT_VERSION"
     testCompile "com.google.testing.compile:compile-testing:$COMPILE_TESTING_VERSION"
     testCompile "com.google.android:android:$GOOGLE_ANDROID_VERSION"
+    testCompile 'commons-io:commons-io:2.4'
     testCompile fileTree(dir: './src/test/libs', includes: ['*.jar'])
     testCompile files(Jvm.current().getToolsJar())
 
