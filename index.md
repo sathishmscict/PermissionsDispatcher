@@ -4,17 +4,19 @@
 
 ![image](https://raw.githubusercontent.com/hotchemi/PermissionsDispatcher/master/art/logo.png)
 
-PermissionsDispatcher provides a simple annotation-based API to handle runtime permissions in Android Marshmallow.
-
-[Runtime permissions](https://developer.android.com/preview/features/runtime-permissions.html) are great for users, but can be tedious to implement correctly for developers, requiring a lot of boilerplate code.
+PermissionsDispatcher provides a simple annotation-based API to handle runtime permissions in Android Marshmallow, **100% reflection-free**.
 
 This library lifts the burden that comes with writing a bunch of check statements whether a permission has been granted or not from you, in order to keep your code clean and safe.
-
-**The library is 100% reflection-free.**
 
 ## Usage
 
 Here's a minimum example, in which we register a `MainActivity` which requires `Manifest.permission.CAMERA`.
+
+### 0. Prepare AndroidManifest
+
+Add the following line to `AndroidManifest.xml`:
+ 
+`<uses-permission android:name="android.permission.CAMERA" />`
 
 ### 1. Attach annotations
 
@@ -78,10 +80,6 @@ protected void onCreate(Bundle savedInstanceState) {
       // NOTE: delegate the permission handling to generated method
       MainActivityPermissionsDispatcher.showCameraWithCheck(this);
     });
-    findViewById(R.id.button_contacts).setOnClickListener(v -> {
-      // NOTE: delegate the permission handling to generated method
-      MainActivityPermissionsDispatcher.showContactsWithCheck(this);
-    });
 }
 
 @Override
@@ -94,10 +92,100 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
 
 Check out the [sample](https://github.com/hotchemi/PermissionsDispatcher/tree/master/sample) and [generated class](https://github.com/hotchemi/PermissionsDispatcher/blob/master/art/MainActivityPermissionsDispatcher.java) for more details.
 
+## Getting Special Permissions
+
+PermissionsDispatcher takes care of special permissions `Manifest.permission.SYSTEM_ALERT_WINDOW` and `Manifest.permission.WRITE_SETTINGS`.
+
+The following sample is to grant `SYSTEM_ALERT_WINDOW`.
+
+### 0. Prepare AndroidManifest
+
+Add the following line to `AndroidManifest.xml`:
+ 
+`<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />`
+
+### 1. Attach annotations
+
+It's the same as other permissions:
+
+```java
+@RuntimePermissions
+public class MainActivity extends AppCompatActivity {
+
+    @NeedsPermission(Manifest.permission.SYSTEM_ALERT_WINDOW)
+    void systemAlertWindow() {
+    }
+
+    @OnShowRationale(Manifest.permission.SYSTEM_ALERT_WINDOW)
+    void systemAlertWindowOnShowRationale(final PermissionRequest request) {
+    }
+
+    @OnPermissionDenied(Manifest.permission.SYSTEM_ALERT_WINDOW)
+    void systemAlertWindowOnPermissionDenied() {
+    }
+
+    @OnNeverAskAgain(Manifest.permission.SYSTEM_ALERT_WINDOW)
+    void systemAlertWindowOnNeverAskAgain() {
+    }
+}
+```
+
+### 2. Delegate to generated class
+
+Unlike other permissions, special permissions require to call the delegation method at `onActivityResult`:
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    findViewById(R.id.button_system_alert_window).setOnClickListener(v -> {
+      // NOTE: delegate the permission handling to generated method
+      MainActivityPermissionsDispatcher.systemAlertWindowWithCheck(this);
+    });
+}
+
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    MainActivityPermissionsDispatcher.onActivityResult(this, requestCode);
+}
+```
+
+## maxSdkVersion
+
+[\<uses-permission\>](https://developer.android.com/guide/topics/manifest/uses-permission-element.html) has an attribute call `maxSdkVersion`. PermissionsDispatcher support the feature as well.
+
+The following sample is for declaring `Manifest.permisison.WRITE_EXTERNAL_STORAGE` up to API level 18.
+
+### 0. AndroidManifest
+
+Declare the permission with `maxSdkVersion` attribute
+
+```xml
+<uses-permission
+     android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+     android:maxSdkVersion="18" />
+```
+
+### 1. Attach annotations with `maxSdkVersion`
+
+```java
+@RuntimePermissions
+public class MainActivity extends AppCompatActivity {
+
+    @NeedsPermission(value = Manifest.permission.WRITE_EXTERNAL_STORAGE, maxSdkVersion = 18)
+    void getStorage() {
+        // ...
+    }
+    
+}
+```
+
 ## Note
 
 - PermissionsDispatcher depends on the `support-v4` library by default, in order to be able to use some permission compat classes.
 - You can use this library with JDK 1.6 or up, but we test library's behaviour on the JDK 1.8 because it has been becoming the default of Android development.
+- PermissionsDispatcher bundles ProGuard rules in its aar. No extra settings are required.
 
 ### Fragment Support
 
@@ -111,18 +199,7 @@ Simply add a dependency on the `support-v13` library alongside PermissionsDispat
 
 If you use [AndroidAnnotations](http://androidannotations.org/), you need to add [AndroidAnnotationsPermissionsDispatcherPlugin](https://github.com/AleksanderMielczarek/AndroidAnnotationsPermissionsDispatcherPlugin) to your dependencies so PermissionsDispatcher's looks for AA's subclasses (your project won't compile otherwise).
 
-### For 1.x users
-
-- [Migrating to 2.x](https://github.com/hotchemi/PermissionsDispatcher/wiki/Migrating-to-2.x)
-
-## ProGuard
-
-PermissionsDispatcher bundles ProGuard rules in its aar. No extra settings are required.
-
 ## Download
-
-
-### For Android Gradle Plugin >= 2.2 users
 
 To add it to your project, include the following in your **app module** `build.gradle` file:
 
@@ -135,28 +212,13 @@ dependencies {
 }
 ```
 
-### For Android Gradle Plugin < 2.2 users
-
-To add it to your project, include the following in your **project** `build.gradle` file:
-
-```groovy
-buildscript {
-  dependencies {
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-  }
-}
-```
-
-And on your **app module** `build.gradle`:
-
-`${latest.version}` is [![Download](https://api.bintray.com/packages/hotchemi/maven/permissionsdispatcher/images/download.svg)](https://bintray.com/hotchemi/maven/permissionsdispatcher/_latestVersion)
+Snapshots of the development version are available in [JFrog's snapshots repository](https://oss.jfrog.org/oss-snapshot-local/). 
+Add the repo below to download `SNAPSHOT` releases.
 
 ```groovy
-apply plugin: 'android-apt'
-
-dependencies {
-  compile 'com.github.hotchemi:permissionsdispatcher:${latest.version}'
-  apt 'com.github.hotchemi:permissionsdispatcher-processor:${latest.version}'
+repositories {
+  jcenter()
+  maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 ```
 
